@@ -20,6 +20,7 @@ router.post('/login',
         })(req, res, next);
     });
 
+/* Do Logout */
 router.get('/logout',
     function(req, res) {
         req.logout();
