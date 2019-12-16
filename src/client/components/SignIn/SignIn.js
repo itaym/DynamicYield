@@ -44,6 +44,14 @@ class SignIn extends PureComponent {
                 <pre>
                     The default user to login with is configured in the project Settings.js ...
                 </pre>
+                <hr />
+                <pre>
+                    I did the minimal UI needed. I'm sorry for the delay, I had a busy week.
+                    I started to implement this exam on Wednesday afternoon. So it was tied.
+                    Any way here it is..
+
+                    Have fun
+                </pre>
             </div>
         )
     }
