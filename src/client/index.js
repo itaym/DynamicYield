@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import App from './App';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
-import reducer from './reducers';
+import reducer from './redux/reducers';
 
 const store = createStore(reducer,
     applyMiddleware(thunk));

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {getRooms, selectRoom, getMeetings, addMeeting, delMeeting} from "../../actions";
+import {getRooms, selectRoom, getMeetings, addMeeting, delMeeting} from "../../redux/actions";
 import DateTime from "../DateTime";
 import './Meetings.css';
 

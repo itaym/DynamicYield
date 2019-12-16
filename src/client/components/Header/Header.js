@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import './Header.css';
 
 import { connect } from 'react-redux';
-import { doLogout } from '../../actions';
+import { doLogout } from '../../redux/actions';
 
 class Header extends PureComponent {
 

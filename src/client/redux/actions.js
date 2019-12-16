@@ -1,4 +1,4 @@
-import { POST, GET, DELETE, options } from './fetch';
+import { POST, GET, DELETE, options } from '../fetch';
 
 export const IS_LOGGED_IN = Symbol('IS_LOGGED_IN');
 export const DO_LOGIN = Symbol('DO_LOGIN');

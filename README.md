@@ -1,4 +1,5 @@
 Web Developer Take Home Exam
+
 Introduction
 You made it this far, it means we think you’re an awesome person. Now it’s time to prove that
 you’re an awesome developer!

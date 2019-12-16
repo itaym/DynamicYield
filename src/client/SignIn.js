@@ -1,16 +1,6 @@
 import React, {PureComponent} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
-import { doLogin } from './actions';
-import withStyles from "@material-ui/core/styles/withStyles";
+import { doLogin } from './redux/actions';
 
 function Copyright() {
     return (
@@ -39,8 +29,6 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-
-//const classes = useStyles();
 
 class SignIn extends PureComponent {
 
@@ -122,4 +110,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps)(withStyles(useStyles)(SignIn));
+export default connect(mapStateToProps)(SignIn);

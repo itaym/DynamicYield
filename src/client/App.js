@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from './components/Header/Header';
 import SignIn from './components/SignIn/SignIn';
 import Main from './components/Main/Main';
-import { isLoggedIn } from './actions';
+import { isLoggedIn } from './redux/actions';
 import {
     BrowserRouter as Router,
     Switch,

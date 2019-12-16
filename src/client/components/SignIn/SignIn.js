@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import './SignIn.css';
 
 import { connect } from 'react-redux';
-import { doLogin } from '../../actions';
+import { doLogin } from '../../redux/actions';
 
 class SignIn extends PureComponent {
 

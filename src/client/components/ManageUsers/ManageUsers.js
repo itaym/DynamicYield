@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {getUsers, addUser, delUser} from "../../actions";
+import {getUsers, addUser, delUser} from "../../redux/actions";
 import './ManageUsers.css';
 
 class ManageUsers extends Component {
