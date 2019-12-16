@@ -54,6 +54,11 @@ module.exports = class Authentication {
 
         req.logout();
 
+        if (!username || !password) {
+            statusCode = HttpStatus.NOT_FOUND;
+            return done(getResponseObject(false, statusCode, null, error), null);
+        }
+
         try {
             user = await MongoDb.getUser(username);
 
@@ -69,6 +74,7 @@ module.exports = class Authentication {
             error = e.message;
         }
         if (statusCode === HttpStatus.OK) {
+            await MongoDb.setLastLogin(username);
             return done(null, user);
         }
         done(getResponseObject(false, statusCode, null, error), null);

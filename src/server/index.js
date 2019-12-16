@@ -4,6 +4,8 @@ const procexss = require('node-procexss');
 const MongoDb = require('./MongoDb');
 const authRouter = require('./routes/AuthRoutes');
 const usersRouter = require('./routes/UserRoutes');
+const roomsRouter = require('./routes/RoomRoutes');
+const meetingsRouter = require('./routes/MeetingRoutes');
 const authentication = require('./Authentication');
 
 const app = express();
@@ -21,6 +23,12 @@ const app = express();
 
         app.use('/', authRouter);
         app.use('/users', usersRouter);
+        app.use('/rooms', roomsRouter);
+        app.use('/meetings', meetingsRouter);
+
+        app.use('/*', function (req, res) {
+            res.redirect('/');
+        });
 
         app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${process.env.PORT || 3000}!`));
     }

@@ -1,8 +1,44 @@
-h1 {
-  color: green;
-}
-
+html,
 body {
+  height: 100%;
+  width: 100%;
   text-align: center;
   margin: auto;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input {
+  width: 240px;
+  border: 1px solid dimgray;
+  border-radius: 4px;
+  line-height: 28px;
+  padding: 4px;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+  height: 30px;
+}
+
+.pointer {
+  cursor: pointer;
 }

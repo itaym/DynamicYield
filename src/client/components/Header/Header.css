@@ -1,0 +1,16 @@
+.Header {
+    width: 100%;
+    line-height: 75px;
+    text-align: left;
+    padding-left: 100px;
+    box-shadow: grey 0 0 10px;
+}
+
+#doLogout {
+    float: right;
+    margin: 20px;
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    color: #607D8B;
+}
