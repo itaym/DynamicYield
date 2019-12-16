@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { connect } from 'react-redux';
 import {getRooms, addRoom, delRoom} from "../../redux/actions";
 import './ManageRooms.css';
 
-class ManageRooms extends Component {
+class ManageRooms extends PureComponent {
 
     componentDidMount () {
         const { dispatch, rooms } = this.props;

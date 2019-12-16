@@ -10,14 +10,14 @@
     border: 1px solid dimgray;
 }
 
-label {
+.SignIn label {
     width: 240px;
     display: block;
     text-align: left;
     font-size: 12px;
     margin: 10px auto 0;
 }
-input {
+.SignIn input {
     display: block;
     margin: 10px auto 20px;
     position: relative;

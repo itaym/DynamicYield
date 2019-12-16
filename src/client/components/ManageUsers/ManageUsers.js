@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { connect } from 'react-redux';
 import {getUsers, addUser, delUser} from "../../redux/actions";
 import './ManageUsers.css';
 
-class ManageUsers extends Component {
+class ManageUsers extends PureComponent {
 
     componentDidMount () {
         const { dispatch, users } = this.props;

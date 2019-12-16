@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { connect } from 'react-redux';
 import {getRooms, selectRoom, getMeetings, addMeeting, delMeeting} from "../../redux/actions";
 import DateTime from "../DateTime";
 import './Meetings.css';
 
-class Meetings extends Component {
+class Meetings extends PureComponent {
 
     state = {
         fromTime: new Date(),
