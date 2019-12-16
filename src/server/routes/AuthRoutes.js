@@ -17,8 +17,6 @@ router.post('/login',
                 }
                 return res.status(HttpStatus.OK).send(getResponseObject(true, HttpStatus.OK, { name: user.name }, null));
             });
-            //return res.status(HttpStatus.NOT_FOUND).send(getResponseObject(false, HttpStatus.NOT_FOUND, null, 'Not found!'));
-
         })(req, res, next);
     });
 
