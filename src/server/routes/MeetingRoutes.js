@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const HttpStatus = require('http-status-codes');
-const MongoDb = require('../MongoDb');
+const MongoDb = require('../mongoDb/MongoDb');
 const authentication = require('../Authentication');
 const { getResponseObject } = require('../utils');
 

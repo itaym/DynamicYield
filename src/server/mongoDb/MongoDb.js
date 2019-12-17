@@ -1,8 +1,9 @@
-const { dateFromObjectId, genRandomString, sha512 } = require('./utils');
+const { dateFromObjectId, genRandomString, sha512 } = require('../utils');
 const { MongoClient } = require('mongodb');
 // noinspection JSUnresolvedVariable
 const ObjectID = require('mongodb').ObjectID;
-const Settings = require('./Settings');
+const Settings = require('../Settings');
+const schemas = require('./MongoSchemas');
 
 //methods symbols
 const _connect = Symbol('_connect');
@@ -29,6 +30,7 @@ const _db = Symbol('_db');
 
 //Other
 const _meetingsName = Symbol('_meetingsName');
+const _createCollections = Symbol('_create_collections');
 
 class MongoDb {
     [_meetingsName] (name) {
@@ -40,7 +42,22 @@ class MongoDb {
         this[_client] = await MongoClient.connect(Settings.mongoDb.url, { useUnifiedTopology: true });
         this[_db] = await this[_client].db(Settings.mongoDb.dbName);
 
+        await this[_createCollections]();
+
         return this[_db];
+    }
+
+    async [_createCollections] () {
+        const collections = [...await this[_db].listCollections().toArray()];
+        const colsNames = collections.map((element) => element.name);
+        const NOT_FOUND = -1;
+
+        if (colsNames.indexOf('users') === NOT_FOUND) {
+            await this.db.createCollection('users', schemas.users);
+        }
+        if (colsNames.indexOf('rooms') === NOT_FOUND) {
+            await this.db.createCollection('rooms', schemas.rooms);
+        }
     }
 
     async [_getUser] (name = Math.random() + '') {
@@ -111,6 +128,22 @@ class MongoDb {
             return element
         });
         return rooms;
+    }
+
+    async [_delRoom] (name) {
+        const meetingsName = this[_meetingsName](name);
+        await this.db.collection(meetingsName).drop();
+        await this.db.collection('rooms').deleteOne({name});
+    }
+
+    async [_addRoom] (name) {
+        const room = await this.getRoom(name);
+        if (room) {
+            throw {message: 'Room already exists'};
+        }
+        const meetingsName = this[_meetingsName](name);
+        await this.db.collection('rooms').insertOne({name});
+        await this.db.createCollection(meetingsName, schemas.meeting_of_);
     }
 
     async [_insertMeeting] (meetingName, meeting, previous, successive) {
@@ -232,41 +265,6 @@ class MongoDb {
     async [_getMeetings] (name) {
         const meetingsName = this[_meetingsName](name);
         return await this.db.collection(meetingsName).find({}).sort({"fromTime":1}).toArray();
-    }
-
-    async [_delRoom] (name) {
-        const meetingsName = this[_meetingsName](name);
-        await this.db.collection(meetingsName).drop();
-        await this.db.collection('rooms').deleteOne({name});
-    }
-
-    async [_getRoom] (name = Math.random() + '') {
-        return await this.db.collection('rooms').findOne({name});
-    }
-
-    async [_getRooms] () {
-        let rooms = await this.db.collection('rooms').find({}).toArray();
-        rooms = [...rooms].map((element) => {
-            element.created = dateFromObjectId(element._id.toString());
-            return element
-        });
-        return rooms;
-    }
-
-    async [_addRoom] (name) {
-        const room = await this.getRoom(name);
-        if (room) {
-            throw {message: 'Room already exists'};
-        }
-        const meetingsName = this[_meetingsName](name);
-        await this.db.createCollection(meetingsName);
-        return await this.db.collection('rooms').insertOne({name});
-    }
-
-    async [_delRoom] (name) {
-        const meetingsName = this[_meetingsName](name);
-        await this.db.collection(meetingsName).drop();
-        await this.db.collection('rooms').deleteOne({name});
     }
 
     async connect () {

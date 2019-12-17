@@ -1,7 +1,7 @@
 const express = require('express');
 // noinspection SpellCheckingInspection
 const procexss = require('node-procexss');
-const MongoDb = require('./MongoDb');
+const MongoDb = require('./mongoDb/MongoDb');
 const authRouter = require('./routes/AuthRoutes');
 const usersRouter = require('./routes/UserRoutes');
 const roomsRouter = require('./routes/RoomRoutes');
