@@ -23,7 +23,6 @@ class App extends Component {
     }
 
     render() {
-        //const { username } = this.props.user.name;
         const { loggedIn } = this.props;
 
         return !loggedIn ?
