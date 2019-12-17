@@ -1,5 +1,4 @@
-const { dateFromObjectId } = require('./utils');
-
+const { dateFromObjectId, genRandomString, sha512 } = require('./utils');
 const { MongoClient } = require('mongodb');
 // noinspection JSUnresolvedVariable
 const ObjectID = require('mongodb').ObjectID;
@@ -64,7 +63,9 @@ class MongoDb {
         if (user) {
             throw {message: 'User already exists'};
         }
-        return await this.db.collection('users').insertOne({name, password});
+        const salt = genRandomString(16);
+        const passObject = sha512( password, salt);
+        return await this.db.collection('users').insertOne({name, password: passObject});
     }
 
     async [_delUser] (name) {
@@ -95,10 +96,7 @@ class MongoDb {
         const users = await collectionUsers.find({}).toArray();
 
         if (users.length === 0) {
-            await collectionUsers.insertOne({
-                name: Settings.defaultUser.name,
-                password: Settings.defaultUser.password
-            });
+            await this.addUser(Settings.defaultUser.name, Settings.defaultUser.password);
         }
     }
 

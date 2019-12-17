@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local');
 const MongoDb = require('./MongoDb');
 const { getResponseObject } = require('./utils');
 const MongoStore = require('connect-mongo')(session);
+const { sha512 } = require('./utils');
 
 module.exports = class Authentication {
     static init (app) {
@@ -65,8 +66,11 @@ module.exports = class Authentication {
             if (!user) {
                 statusCode = HttpStatus.NOT_FOUND;
             }
-            else if (user.password !== password) {
-                statusCode = HttpStatus.NOT_FOUND;
+            else {
+                const reCreateHash = sha512( password, user.password.salt);
+                if (user.password.hash !== reCreateHash.hash) {
+                    statusCode = HttpStatus.NOT_FOUND;
+                }
             }
         }
         catch (e) {

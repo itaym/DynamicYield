@@ -42,9 +42,3 @@ const app = express();
     .catch((e) => {
         console.log(`This is not a good end...\n${e.message}`);
     });
-
-
-
-
-
-
