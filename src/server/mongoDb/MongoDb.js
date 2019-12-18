@@ -226,7 +226,7 @@ class MongoDb {
             }
             else {
                 //if this is the first meeting for the room
-                let count = await collection.count();
+                let count = await collection.countDocuments();
                 if (count === 0) {
                     //insertMeeting
                     this[_insertMeeting](meetingsName, newMeeting, null, null);

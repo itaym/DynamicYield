@@ -55,6 +55,7 @@ export default (state, action) => {
                 ...state,
                 statusCode: action.statusCode,
                 currentRoom: action.data,
+                meetings: undefined,
                 error: action.error
             };
         case GET_MEETINGS :
