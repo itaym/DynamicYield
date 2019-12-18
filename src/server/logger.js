@@ -3,23 +3,31 @@ const winston = require('winston');
 const { MongoDB } = require('winston-mongodb');
 const Settings = require('./Settings');
 
+function getBody (req) {
+    const json = Object.assign({}, req.body, req.query);
+
+    delete json.password;
+    return JSON.stringify(json);
+}
+
 const logger = expressWinston.logger({
     transports: [
         winston.add(new MongoDB({
             db : `${Settings.mongoDb.url}/${Settings.mongoDb.dbName}`,
             collection : 'winston',
             cappedSize: Settings.logger.cappedSize,
-            expireAfterSeconds: Settings.logger.expireAfterSeconds,
+            cappedMax: Settings.logger.cappedMax,
             capped : true,
+            json: true,
             level : Settings.logger.logLevel,
-            format: winston.format.metadata(),
             expressFormat: true,
         }))
     ],
     meta: true,
     level:Settings.logger.logLevel,
     msg: function (req, res) {
-        return `${req.user ? req.user.name : 'NO-USER'}, ${res.statusCode}, ${req.method}, ${req.url}`;
+        // noinspection JSUnresolvedVariable
+        return `${req.user ? req.user.name : 'NO-USER'}, ${res.statusCode}, ${req.method}, ${req.url}, ${getBody(req)}, ${req.get('user-agent')}`;
     }
 });
 

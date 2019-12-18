@@ -7,6 +7,12 @@ export default (state, action) => {
 
     switch (action.type) {
         case IS_LOGGED_IN :
+            return {
+                ...state,
+                statusCode: action.statusCode,
+                user: action.data,
+                error: action.statusCode === 418 ? undefined : action.error
+            };
         case DO_LOGIN :
         case DO_LOGOUT :
             return {
