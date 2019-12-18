@@ -2,6 +2,7 @@ const express = require('express');
 // noinspection SpellCheckingInspection
 const procexss = require('node-procexss');
 const MongoDb = require('./mongoDb/MongoDb');
+const logger = require('./logger');
 const authRouter = require('./routes/AuthRoutes');
 const usersRouter = require('./routes/UserRoutes');
 const roomsRouter = require('./routes/RoomRoutes');
@@ -17,6 +18,7 @@ const app = express();
 
         authentication.init(app);
 
+        app.use(logger);
         app.use(express.static('dist'));
         app.use(express.static(__dirname + '/../../public'));
         app.use(procexss());
